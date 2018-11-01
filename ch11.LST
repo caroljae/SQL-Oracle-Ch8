@@ -1,0 +1,182 @@
+
+Carol Goodnight
+
+
+
+Question 1 -------------------
+                                                         
+
+SQL> select count(*)
+  2  from books
+  3  where category = 'COOKING';
+
+  COUNT(*)                                                                                                              
+----------                                                                                                              
+         2                                                                                                              
+
+SQL> 
+SQL> 
+SQL> 
+Question 2 -----------------------
+SQL> select count(*)
+  2  from books
+  3  where retail > 30;
+
+  COUNT(*)                                                                                                              
+----------                                                                                                              
+         8                                                                                                              
+
+SQL> 
+
+Question 3 -------------------------
+SQL> 
+SQL> select max(pubdate)
+  2  from books;
+
+MAX(PUBDA                                                                                                               
+---------                                                                                                               
+11-NOV-06                                                                                                               
+
+SQL> 
+SQL> 
+
+Question 4----------------------------
+
+SQL> select sum((paideach-cost)*quantity) "Total Profit"
+  2  from orderitems join books using (isbn)
+  3  where customer
+  4  
+SQL> select sum(retail-cost) "Total Profit)
+  2  from books
+  3  where customer
+  4  
+SQL> 
+SQL> 
+SQL> select count(*)
+  2  
+  Question 5 ----------------------------
+  
+SQL> select min(retail)
+  2  from books
+  3  where category = 'COMPUTER';
+
+MIN(RETAIL)                                                                                                             
+-----------                                                                                                             
+         25                                                                                                             
+
+SQL> 
+SQL> 
+SQL> 
+Question 6---------------------------------
+SQL> select ave(retail-cost) "Average Profit"
+  2  from orders;
+select ave(retail-cost) "Average Profit"
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select avg(retail-cost) "Average Profit"
+  2* from orders
+SQL> /
+select avg(retail-cost) "Average Profit"
+                  *
+ERROR at line 1:
+ORA-00904: "COST": invalid identifier 
+
+Question 7-------------------------------------
+SQL> select count(*)
+  2  from orders
+  3  group by customers;
+group by customers
+         *
+ERROR at line 3:
+ORA-00904: "CUSTOMERS": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select count(*)
+  2  from orders
+  3* group by customers#
+SQL> /
+group by customers#
+         *
+
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select count(*)
+  2  from orders
+  3* group by category
+  4  
+SQL> /
+group by category
+  
+
+
+SQL> 
+SQL> 
+SQL> 
+Question 8----------------------
+SQL> 
+SQL> select category, TO_CHAR(AVG(retail-cost), '999.99') "Profit"
+  2  from
+  3  ed
+  4  
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select category, TO_CHAR(AVG(retail), '999.99')
+  2  from books
+  3  where category = 'CHILDREN' or category = 'COMPUTER'
+  4  group by category
+  5* having avg(retail-cost) > 50
+SQL> /
+
+no rows selected
+
+SQL> 
+SQL> 
+Question 9----------------------------------
+SQL> select avg(sum(quantity*paideach)) "Average Order Total"
+  2  from orders join customers using (customer#)
+  3  where (avg(sum(quantity*paideach))) > 80;
+where (avg(sum(quantity*paideach))) > 80
+       *
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select avg(sum(quantity*paideach)) "Average Order Total"
+  2  from orders join customers using (customer#)
+  3* where "Average Order Total" > 80
+SQL> /
+where "Average Order Total" > 80
+ 
+
+SQL> 
+SQL> 
+Question 10 --------------------------------
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select max(retail)
+  2  from books join bookauthor using (isbn)
+  3  where authorid = (select authorid
+  4  		from author
+  5  		where lname = 'WHITE' and
+  6* 			fname = 'LISA')
+SQL> /
+
+MAX(RETAIL)                                                                                                             
+-----------                                                                                                             
+      39.95                                                                                                             
+
+SQL> spool off
